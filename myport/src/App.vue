@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import HeaderView from "./views/Header.vue";
+import HeaderView from "./views/Header/Header.vue";
 export default {
   name: 'App',
   components: {

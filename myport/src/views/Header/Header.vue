@@ -5,7 +5,7 @@
                 <img class="img" src="@/assets/images/logo.svg">
             </div>
             <div class="main">Folio</div>
-            <div class="login">로그인</div>
+            <div class="login" @click="() => fnMovePage('/login')">로그인</div>
         </div>
         <div class="navbar">
             <div @click="() => fnMovePage('/')">홈</div>
@@ -26,7 +26,6 @@ export default {
     },
     methods: {
         fnMovePage(page) {
-            console.log('들어오긴 하니??', page);
             this.$router.push(`${page}`);
         }
     }
@@ -58,6 +57,8 @@ export default {
     .header_main > .title > .login {
         font-size: 12px;
         color: #428EFF;
+        cursor: pointer;
+        font-size: 16px;
     }
 
     .header_main > .navbar {

@@ -1,5 +1,10 @@
 <template>
     <div class="team_main">
+        <div class="search_team">
+            <input type="text" placeholder="팀 이름을 검색하세요.">
+            <button>검색</button>
+            <button>설정</button>
+        </div>
         <div class="my_team">
             <div class="title">내가 소속된 팀</div>
             <div class="my_team_group" v-for="(item, idx) in my_teams">
@@ -52,7 +57,7 @@ export default {
                 img: ''
             },
             {
-                type: '팀장',
+                type: '팀원',
                 title: '세인이 행복하게 해주기 프로젝트',
                 category: '닥터마틴 디자인 공모전',
                 img: ''
@@ -91,6 +96,31 @@ export default {
     .team_br_line {
         border: 5px solid #F2F4F5;
     }
+
+    .search_team {
+        width: 100%;
+        margin-bottom: 15px;;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .search_team > input {
+        width: 80%;
+        height: 40px;
+        padding: 12px;
+        border-radius: 5px;
+    }
+
+    .search_team > button {
+        width: 8%;
+        margin-left: 2%;
+        background-color: white;
+        border: 1px solid #428EFF;
+        border-radius: 5px;
+        color: #428EFF;
+        font-size: 14px;
+        font-weight: 700;
+    } 
 
     .my_team {
         margin-bottom: 18px;
