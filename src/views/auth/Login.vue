@@ -112,7 +112,7 @@ export default {
 }
 
 .auth_login_main > .auth_login_content > .input_gr > input::placeholder {
-  color: black;
+  color: white;
   font-size: 18px;
   font-weight: 700;
 }
@@ -126,6 +126,7 @@ export default {
   font-size: 22px;
   width: 415px;
   font-weight: 700;
+  color: #428eff;
 }
 
 .auth_login_main > .auth_login_content > .error_msg {
@@ -140,6 +141,8 @@ export default {
   width: 415px;
   margin: 1% 30%;
   font-size: 15px;
+  font-weight: 700;
   cursor: pointer;
+  color: #428eff;
 }
 </style>

@@ -4,7 +4,7 @@
       <div class="logo">
         <img class="img" src="@/assets/images/logo.svg" />
       </div>
-      <div class="main">Folio</div>
+      <div class="main" @click="() => fnMovePage('/')">Folio</div>
       <div class="login" @click="() => fnMovePage('/auth/login')">로그인</div>
     </div>
     <div class="navbar">
@@ -44,6 +44,10 @@ export default {
   margin: 24px 0px;
 }
 
+.header_main > .title > .main {
+  cursor: pointer;
+}
+
 .header_main > .title > .logo > .img {
   width: 25px;
   height: 25px;
@@ -65,5 +69,6 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   cursor: pointer;
+  font-size: 16px;
 }
 </style>
