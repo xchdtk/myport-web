@@ -29,6 +29,18 @@ const routes = [
     name: "auth-login",
     component: () => import("../views/auth/Login.vue"),
   },
+  {
+    path: "/auth/register",
+    name: "auth-register",
+    component: () => import("../views/auth/Register.vue"),
+  },
+
+  //errors
+  {
+    path: "/error",
+    name: "error",
+    component: () => import("../views/error/DefaultError.vue"),
+  },
 ];
 
 const router = createRouter({

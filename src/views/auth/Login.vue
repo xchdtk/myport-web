@@ -17,7 +17,7 @@
         />
       </div>
       <div class="sub_content">
-        <div>회원가입</div>
+        <div @click="() => fnMovePage('/auth/register')">회원가입</div>
         <div>비밀번호를 잃어버리셨나요?</div>
       </div>
       <div class="error_msg">
@@ -38,6 +38,7 @@
 
 <script>
 import { ref } from "vue";
+import router from "@/router";
 
 export default {
   name: "AuthLoginView",
@@ -55,12 +56,17 @@ export default {
       inputStatus.value = true;
     };
 
+    const fnMovePage = (page) => {
+      router.push(page);
+    };
+
     return {
       id,
       password,
       inputStatus,
       onLogin,
       onChange,
+      fnMovePage,
     };
   },
 };

@@ -18,16 +18,16 @@
 
 <script>
 import "@/assets/css/common.css";
+import router from "@/router";
 
 export default {
   name: "HeaderView",
   setup() {
-    return {};
-  },
-  methods: {
-    fnMovePage(page) {
-      this.$router.push(`${page}`);
-    },
+    const fnMovePage = (page) => {
+      router.push(page);
+    };
+
+    return { fnMovePage };
   },
 };
 </script>
