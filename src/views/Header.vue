@@ -5,7 +5,9 @@
         <img class="img" src="@/assets/images/logo.svg" />
       </div>
       <div class="main" @click="() => fnMovePage('/')">Folio</div>
-      <div class="login" @click="() => fnMovePage('/auth/login')">로그인</div>
+      <div class="login" @click="() => fnMovePage('/auth/login')">
+        로그인 및 회원가입
+      </div>
     </div>
     <div class="navbar">
       <div @click="() => fnMovePage('/')">홈</div>
@@ -18,16 +20,16 @@
 
 <script>
 import "@/assets/css/common.css";
+import router from "@/router";
 
 export default {
   name: "HeaderView",
   setup() {
-    return {};
-  },
-  methods: {
-    fnMovePage(page) {
-      this.$router.push(`${page}`);
-    },
+    const fnMovePage = (page) => {
+      router.push(page);
+    };
+
+    return { fnMovePage };
   },
 };
 </script>
@@ -59,7 +61,7 @@ export default {
 }
 
 .header_main > .title > .login {
-  font-size: 15px;
+  font-size: 13px;
   color: #428eff;
   cursor: pointer;
 }

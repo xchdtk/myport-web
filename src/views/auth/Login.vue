@@ -5,29 +5,29 @@
       <div class="input_gr">
         <input
           type="text"
-          placeholder="아이디"
-          v-model="id"
+          placeholder="이메일을 입력해주세요."
+          v-model="email"
           @input="onChange($event)"
         />
         <input
           type="password"
           name="focus"
-          placeholder="비밀번호"
+          placeholder="비밀번호를 입력해주세요."
           v-model="password"
         />
       </div>
       <div class="sub_content">
-        <div>회원가입</div>
+        <div @click="() => fnMovePage('/auth/register')">회원가입</div>
         <div>비밀번호를 잃어버리셨나요?</div>
       </div>
       <div class="error_msg">
-        <div v-if="inputStatus && !id && !password">
+        <div v-if="inputStatus && !email && !password">
           * 아이디 또는 비밀번호가 잘못되었습니다.
         </div>
-        <div v-else-if="inputStatus && !id && password">
+        <div v-else-if="inputStatus && !email && password">
           * 아이디를 입력해주세요.
         </div>
-        <div v-else-if="inputStatus && id && !password">
+        <div v-else-if="inputStatus && email && !password">
           * 비밀번호를 입력해주세요
         </div>
       </div>
@@ -37,30 +37,57 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useStore } from "vuex";
+import router from "@/router";
 
 export default {
   name: "AuthLoginView",
   setup() {
+    const store = useStore();
+
     const inputStatus = ref(false);
-    const id = ref("");
+    const email = ref("");
     const password = ref("");
 
-    const onLogin = () => {
-      if (id.value && password.value) {
-        alert("로그인 성공");
+    const token = ref("");
+    onMounted(() => {
+      token.value = localStorage.getItem("folio_token");
+
+      if (token.value) {
+        fnMovePage("/");
+      }
+    });
+
+    const onLogin = async () => {
+      if (email.value && password.value) {
+        const status = await store.dispatch("Auth/AuthLogin", {
+          email: email.value,
+          password: password.value,
+        });
+        if (!status) {
+          alert("이메일 또는 비밀번호가 잘못되었습니다.");
+          return;
+        }
+
+        router.push("/");
       }
     };
     const onChange = (event) => {
       inputStatus.value = true;
     };
 
+    const fnMovePage = (page) => {
+      router.push(page);
+    };
+
     return {
-      id,
+      email,
       password,
       inputStatus,
       onLogin,
       onChange,
+      fnMovePage,
     };
   },
 };
