@@ -6,7 +6,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    const token = JSON.parse(localStorage.getItem("FolioAuthAccessToken"));
+    const token = JSON.parse(localStorage.getItem("folio_token"));
 
     config.headers["Content-Type"] = "application/json; charset=utf-8";
     if (token) {
@@ -21,7 +21,6 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (res) => {
-    console.log("axios.js response : ", res);
     return res;
   },
   (error) => {
