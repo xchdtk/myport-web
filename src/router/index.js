@@ -14,6 +14,8 @@ const routes = [
       }
     },
   },
+
+  // activity
   {
     path: "/activity",
     name: "activity",
@@ -26,6 +28,8 @@ const routes = [
       }
     },
   },
+
+  // team
   {
     path: "/team",
     name: "team",
@@ -38,6 +42,32 @@ const routes = [
       }
     },
   },
+  {
+    path: "/team/apply",
+    name: "team_apply",
+    component: () => import("../views/team/Apply.vue"),
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem("folio_token")) {
+        next();
+      } else {
+        next("/auth/login");
+      }
+    },
+  },
+  {
+    path: "/team/detail",
+    name: "team_detail",
+    component: () => import("../views/team/Detail.vue"),
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem("folio_token")) {
+        next();
+      } else {
+        next("/auth/login");
+      }
+    },
+  },
+
+  // my
   {
     path: "/my",
     name: "my",

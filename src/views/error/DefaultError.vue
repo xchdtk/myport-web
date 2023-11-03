@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "HomeView",
+  name: "DefaultErrorView",
   setup() {
     return {};
   },

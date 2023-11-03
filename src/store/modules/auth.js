@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../plugins/axios-interceptors";
 
 export const Auth = {
   namespaced: true,
@@ -13,9 +13,7 @@ export const Auth = {
   actions: {
     async GetAuthEmail(context, value) {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/auth/email?email=${value}`
-        );
+        const response = await axios.get(`/auth/email?email=${value}`);
 
         if (response?.status === 200) {
           context.commit("setAuthCode", response?.data);
@@ -30,12 +28,9 @@ export const Auth = {
 
     async AuthRegister(context, value) {
       try {
-        const response = await axios.post(
-          `http://localhost:3000/auth/register`,
-          value
-        );
+        const response = await axios.post(`/auth/register`, value);
 
-        if (response?.status === 200) {
+        if (response?.status === 201) {
           return true;
         }
         return false;
