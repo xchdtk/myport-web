@@ -80,6 +80,7 @@ export const Team = {
 
     async ApplyTeam(context, value) {
       try {
+        console.log("teamseq", value);
         const response = await axios.post("/teams/applications", value);
 
         if (response?.status === 201) {

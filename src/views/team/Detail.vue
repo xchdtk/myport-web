@@ -73,8 +73,20 @@
           <div class="job">{{ item?.user_role }}</div>
         </div>
       </div>
-      <div class="content_team" v-if="selectGroupStatus === 'waiting'">
-        waiting
+      <div class="content_applied" v-if="selectGroupStatus === 'waiting'">
+        <div class="content_applied_group">
+          <div class="profile">
+            <img
+              :src="team.team_user[0]?.profile_image_url"
+              alt="프로필 이미지"
+            />
+            <div>김진수</div>
+          </div>
+          <div class="status_btn">
+            <div class="accept">수락</div>
+            <div class="refuse">거절</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -302,5 +314,66 @@ export default {
   font-size: 15px;
   font-weight: 700;
   color: #666666;
+}
+
+.team_detail_main > .content_group > .content_applied > .content_applied_group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+  padding: 3% 5%;
+}
+
+.team_detail_main
+  > .content_group
+  > .content_applied
+  > .content_applied_group
+  > .profile {
+  display: flex;
+  flex-direction: row;
+  padding-top: 9px;
+}
+
+.team_detail_main
+  > .content_group
+  > .content_applied
+  > .content_applied_group
+  > .status_btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.team_detail_main
+  > .content_group
+  > .content_applied
+  > .content_applied_group
+  > .status_btn
+  > .accept {
+  margin-right: 3px;
+  background-color: #428eff;
+  color: white;
+}
+
+.team_detail_main
+  > .content_group
+  > .content_applied
+  > .content_applied_group
+  > .status_btn
+  > .refuse {
+  background-color: white;
+  color: #428eff;
+}
+
+.team_detail_main
+  > .content_group
+  > .content_applied
+  > .content_applied_group
+  > .status_btn
+  > .accept,
+.refuse {
+  font-size: 18px;
+  font-weight: 700;
+  padding: 9px 32px;
 }
 </style>
