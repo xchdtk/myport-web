@@ -91,7 +91,9 @@ export default {
     const confirmPassword = ref("");
 
     const authEmail = async () => {
-      const emailRegex = new RegExp("[a-z0-9]+@[a-z]+\.[a-z]{2,3}");
+      const emailRegex = new RegExp(
+        "/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;"
+      );
       if (emailAuthAreaStatus.value) {
         return;
       }
@@ -101,10 +103,10 @@ export default {
         return;
       }
 
-      if (!emailRegex.test(email.value)) {
-        alert("이메일 형식을 지켜주세요.");
-        return;
-      }
+      // if (!emailRegex.test(email.value)) {
+      //   alert("이메일 형식을 지켜주세요.");
+      //   return;
+      // }
 
       emailAuthResponseStatus.value = true;
       const status = await store.dispatch("Auth/GetAuthEmail", email.value);
@@ -181,8 +183,6 @@ export default {
         router.push("/auth/login");
         return;
       }
-
-      router.push("/error");
     };
     return {
       name,

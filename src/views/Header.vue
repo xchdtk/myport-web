@@ -11,7 +11,6 @@
     </div>
     <div class="navbar">
       <div @click="() => fnMovePage('/')">홈</div>
-      <div @click="() => fnMovePage('/activity')">공모전/대외활동</div>
       <div @click="() => fnMovePage('/team')">팀</div>
       <div @click="() => fnMovePage('/my')">내정보</div>
     </div>
