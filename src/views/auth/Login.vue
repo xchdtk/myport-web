@@ -56,6 +56,7 @@ export default {
 
       if (token.value) {
         fnMovePage("/");
+        return;
       }
     });
 
@@ -67,6 +68,9 @@ export default {
         });
         if (!status) {
           alert("이메일 또는 비밀번호가 잘못되었습니다.");
+          inputStatus.value = false;
+          email.value = '';
+          password.value = '';
           return;
         }
 

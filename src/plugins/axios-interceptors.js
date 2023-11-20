@@ -10,7 +10,6 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("folio_token");
-    config.headers["Content-Type"] = "application/json; charset=utf-8";
 
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;

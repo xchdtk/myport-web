@@ -64,7 +64,11 @@
         </div>
       </div>
       <div class="content_team" v-if="selectGroupStatus === 'team'">
-        <div class="content_team_group" v-for="(item, idx) in team.team_user">
+        <div
+          class="content_team_group"
+          v-for="(item, idx) in team.team_user"
+          v-bind:key="idx"
+        >
           <img
             :src="item?.profile_image_url ? item?.profile_image_url : ''"
             alt="유저 기본이미지"
@@ -74,13 +78,25 @@
         </div>
       </div>
       <div class="content_applied" v-if="selectGroupStatus === 'waiting'">
-        <div class="content_applied_group">
+        <div
+          class="content_applied_group"
+          v-for="(item, idx) in team.recruitment_team"
+          v-bind:key="idx"
+        >
           <div class="profile">
             <img
-              :src="team.team_user[0]?.profile_image_url"
+              v-if="item.user.profile_image_url"
+              class="waiting_user_img"
+              src="@/assets/images/test_user.jpg"
               alt="프로필 이미지"
             />
-            <div>김진수</div>
+            <img
+              v-else
+              class="waiting_user_img"
+              src="@/assets/images/test_user.jpg"
+              alt="프로필 이미지"
+            />
+            <div class="name">{{ item.user.name }}</div>
           </div>
           <div class="status_btn">
             <div class="accept">수락</div>
@@ -110,15 +126,11 @@ export default {
     const team = ref({});
 
     onMounted(async () => {
-      console.log("teamSeq", teamSeq);
       const teamStatus = await store.dispatch("Team/GetTeam", teamSeq);
       if (teamStatus) {
         team.value = store.state.Team.team;
-        console.log("team", team.value);
         return;
       }
-
-      router.push("/error");
     });
 
     const selectGroup = (value) => {
@@ -126,11 +138,10 @@ export default {
     };
 
     const applyTeam = async () => {
-      console.log("들어오냐?");
       const status = await store.dispatch("Team/ApplyTeam", {
         team_seq: teamSeq,
       });
-      console.log("applyTeam status", status);
+
       if (status) {
         alert(
           "정상적으로 팀에 지원하였습니다. 최대 일주일 내로 연락드릴예정입니다."
@@ -138,8 +149,6 @@ export default {
         router.push("/team");
         return;
       }
-
-      router.push("/error");
     };
     return {
       team,
@@ -331,7 +340,34 @@ export default {
   > .profile {
   display: flex;
   flex-direction: row;
+  align-content: center;
   padding-top: 9px;
+}
+
+.team_detail_main
+  > .content_group
+  > .content_applied
+  > .content_applied_group
+  > .profile
+  > .waiting_user_img {
+  width: 25px;
+  height: 25px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.team_detail_main
+  > .content_group
+  > .content_applied
+  > .content_applied_group
+  > .profile
+  > .name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 12px;
+  font-size: 17px;
+  font-weight: 700;
 }
 
 .team_detail_main
@@ -350,9 +386,10 @@ export default {
   > .content_applied_group
   > .status_btn
   > .accept {
-  margin-right: 3px;
+  margin-right: 8px;
   background-color: #428eff;
   color: white;
+  border-radius: 10px;
 }
 
 .team_detail_main
@@ -363,6 +400,8 @@ export default {
   > .refuse {
   background-color: white;
   color: #428eff;
+  border-radius: 10px;
+  border: 1px solid #428eff;
 }
 
 .team_detail_main

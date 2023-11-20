@@ -15,20 +15,6 @@ const routes = [
     },
   },
 
-  // activity
-  {
-    path: "/activity",
-    name: "activity",
-    component: () => import("../views/activity/Activity.vue"),
-    beforeEnter: (to, from, next) => {
-      if (localStorage.getItem("folio_token")) {
-        next();
-      } else {
-        next("/auth/login");
-      }
-    },
-  },
-
   // team
   {
     path: "/team",

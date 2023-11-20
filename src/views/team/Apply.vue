@@ -107,6 +107,12 @@
           ></textarea>
         </div>
       </div>
+      <div class="image_upload">
+        <div class="title">팀 이미지</div>
+        <div class="input_img">
+          <input type="file" @change="uploadTeamImage" accept="image/*" />
+        </div>
+      </div>
     </div>
     <button class="recruitment_btn" @click="() => recruitmentTeam()">
       모집하기
@@ -124,6 +130,9 @@ export default {
   name: "ApplyView",
   setup() {
     const store = useStore();
+
+    const teamImageUrl = ref(null);
+    const form_data = new FormData();
 
     const teamTypeGroup = {
       competition: "공모전/해커톤",
@@ -144,6 +153,17 @@ export default {
     const teamApplyDetailDescriptionInputFocus = ref(false);
     const teamApplyRecruitmentInputFocus = ref(false);
 
+    const uploadTeamImage = async (event) => {
+      const file = event.target.files[0];
+
+      if (file) {
+        form_data.append("file", file);
+        return;
+      }
+
+      alert("파일이 선택되지 않았습니다. 다시 선택해주세요.");
+    };
+
     const selectTeamType = (value) => {
       team.type = value;
     };
@@ -163,15 +183,19 @@ export default {
         alert("팀 자세한 설명을 입력해주세요.");
       }
 
-      const status = await store.dispatch("Team/SaveTeam", team);
+      form_data.append("type", team.type);
+      form_data.append("name", team.name);
+      form_data.append("description", team.description);
+      form_data.append("detailDescription", team.detailDescription);
+      form_data.append("recruitment", team.recruitment);
 
-      if (status) {
+      const teamStatus = await store.dispatch("Team/SaveTeam", form_data);
+
+      if (teamStatus) {
         alert("정상적으로 팀이 생성됐습니다.");
         router.push("/team");
         return;
       }
-
-      router.push("/error");
     };
 
     const addTeamApplyNameInputFocus = () => {
@@ -208,11 +232,13 @@ export default {
 
     return {
       team,
+      teamImageUrl,
       teamTypeGroup,
       teamApplyNameInputFocus,
       teamApplyDescriptionInputFocus,
       teamApplyDetailDescriptionInputFocus,
       teamApplyRecruitmentInputFocus,
+      uploadTeamImage,
       selectTeamType,
       addTeamApplyNameInputFocus,
       removeTeamApplyNameInputFocus,
@@ -398,6 +424,20 @@ export default {
   padding: 20px;
   border-radius: 5px;
   resize: none;
+}
+
+.team_apply_main > .team_apply_content > .image_upload {
+  margin-top: 55px;
+}
+
+.team_apply_main > .team_apply_content > .image_upload > .title {
+  font-size: 23px;
+  font-weight: 700;
+  color: black;
+}
+
+.team_apply_main > .team_apply_content > .image_upload > .input_img {
+  margin-top: 18px;
 }
 
 .detail_recruitment_input_focus {

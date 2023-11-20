@@ -111,7 +111,7 @@ export default {
       emailAuthResponseStatus.value = true;
       const status = await store.dispatch("Auth/GetAuthEmail", email.value);
       emailAuthResponseStatus.value = false;
-      console.log("sta");
+
       if (!status) {
         alert("이미 가입된 이메일이거나 아닐경우 다시한번 시도해주세요.");
         email.value = "";
@@ -183,8 +183,6 @@ export default {
         router.push("/auth/login");
         return;
       }
-
-      router.push("/error");
     };
     return {
       name,
